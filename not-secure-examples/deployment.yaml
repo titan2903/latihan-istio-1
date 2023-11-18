@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-dashboard
+  namespace: not-secure
+spec:
+  selector:
+    matchLabels:
+      app: frontend-dashboard
+  template:
+    metadata:
+      labels:
+        app: frontend-dashboard
+    spec:
+      containers:
+        - name: frontend-dashboard
+          image: aditirvan/istio-sample-app:dashboard
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "100m"
+            requests:
+              memory: "68Mi"
+              cpu: "10m"
+          ports:
+            - containerPort: 8080
+          env:
+            - name: API_PRODUCT
+              value: http://be-products-svc.core.svc.cluster.local/api/products # hit ke `service` yang sudah di set di kubernetes
+            - name: API_CUSTOMER
+              value: http://be-customers-v1-svc.core.svc.cluster.local/api/customers # Jika port bukan `80` maka perlu ditambahkan port pada bagian `.local:8080`
