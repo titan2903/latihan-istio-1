@@ -1,0 +1,25 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: virtual-service-cust-be
+  namespace: core
+spec:
+  hosts:
+    - "be-customers-v1-svc.core.svc.cluster.local"
+  http:
+    - name: "customer-canary-deployment"
+      route:
+        - destination:
+            # port:
+            #   number: 8000 # jika port nya `80` tidak perlu define key `port`
+            host: be-customers-v1-svc.core.svc.cluster.local # Host destinationnya ke dirinya sendiri
+            subset: v1 # tujuan ke destination rule yang dibuat
+          weight: 0 # 0% diarahkan ke v1
+        - destination:
+            host: be-customers-v1-svc.core.svc.cluster.local
+            subset: v2
+          weight: 0 # 0% diarahkan ke v2
+        - destination:
+            host: be-customers-v1-svc.core.svc.cluster.local
+            subset: v3
+          weight: 100 # 100% diarahkan ke v3

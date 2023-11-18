@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: be-customers-v1
+  name: be-customers-v2
   namespace: core
 spec:
   selector:
@@ -11,11 +11,11 @@ spec:
     metadata:
       labels:
         app: be-customers-v1
-        version: "1.0"
+        version: "2.0"
     spec:
       containers:
       - name: be-customers-v1
-        image: aditirvan/istio-sample-app:customers-v1.0
+        image: aditirvan/istio-sample-app:customers-v2.0
         resources:
           limits:
             memory: "128Mi"

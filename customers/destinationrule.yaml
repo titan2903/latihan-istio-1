@@ -1,0 +1,23 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: customer-svc-destinationrule
+  namespace: core
+spec:
+  host: be-customers-v1-svc.core.svc.cluster.local
+  # trafficPolicy:
+  #   loadBalancer:
+  #     simple: LEAST_REQUEST
+  subsets:
+  - name: v1
+    labels:
+      version: "1.0" # version di samapin dengan version yang ada di deployment
+  - name: v2
+    labels:
+      version: "2.0"
+  - name: v3
+    labels:
+      version: "3.0"
+    # trafficPolicy:
+    #   loadBalancer:
+    #     simple: ROUND_ROBIN
