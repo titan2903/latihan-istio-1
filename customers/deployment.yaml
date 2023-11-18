@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: be-customers-v1
+  namespace: core
+spec:
+  selector:
+    matchLabels:
+      app: be-customers-v1
+  template:
+    metadata:
+      labels:
+        app: be-customers-v1
+    spec:
+      containers:
+      - name: be-customers-v1
+        image: aditirvan/istio-sample-app:customers-v1.0
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+          requests:
+            memory: "68Mi"
+            cpu: "10m"
+        ports:
+        - containerPort: 8080

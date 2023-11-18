@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: be-products
+  namespace: core
+spec:
+  selector:
+    matchLabels:
+      app: be-products
+  template:
+    metadata:
+      labels:
+        app: be-products
+    spec:
+      containers:
+      - name: be-products
+        image: aditirvan/istio-sample-app:products
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+          requests:
+            memory: "68Mi"
+            cpu: "10m"
+        ports:
+        - containerPort: 8080
